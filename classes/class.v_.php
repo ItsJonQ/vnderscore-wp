@@ -12,77 +12,77 @@
 // Defining the main v_ class
 if(!class_exists('v_')) {
 
-    // Including / requiring the other classes
+  // Including / requiring the other classes
+
+  /**
+   * Filter
+   * @class   v_filter
+   */
+  include( 'class.v_filter.php' );
+
+  /**
+   * Header
+   * @class   v_header
+   */
+  include( 'class.v_header.php' );
+
+  /**
+   * Image
+   * @class   v_image
+   */
+  include( 'class.v_image.php' );
+
+  /**
+   * Posts
+   * @class   v_post
+   */
+  include( 'class.v_post.php' );
+
+
+  class v_ {
 
     /**
-     * Filter
-     * @class   v_filter
+     * init
+     * Initialization method for this class
+     *
+     * @init
      */
-    include( 'class.v_filter.php' );
-
-    /**
-     * Header
-     * @class   v_header
-     */
-    include( 'class.v_header.php' );
-
-    /**
-     * Image
-     * @class   v_image
-     */
-    include( 'class.v_image.php' );
-
-    /**
-     * Posts
-     * @class   v_post
-     */
-    include( 'class.v_post.php' );
-
-
-    class v_ {
-
-        /**
-         * init
-         * Initialization method for this class
-         *
-         * @init
-         */
-        public static function init() {
-            /**
-             * Nothin' yet!
-             */
-        }
-
-        /**
-         * extend
-         * Method to extend settings / options (arrays)
-         * @param  [ array ] $base        [ the base/original array ]
-         * @param  [ array ] $replacement [ the replacement array ]
-         * @return [ array ]              [ the extended base array]
-         */
-        public static function extend( $base, $replacement = null ) {
-            // Return false if $base is invalid
-            if( !isset($base) || !is_array( $base ) ) {
-                return false;
-            }
-
-            // Return base if $replacement is not defined or if it's not valid
-            if( !$replacement || !is_array( $replacement ) ) {
-                return $base;
-            }
-
-            // Defining the $output
-            $output = array_replace_recursive( $base, $replacement );
-
-            // Returning the $output
-            return $output;
-        }
-
+    public static function init() {
+      /**
+       * Nothin' yet!
+       */
     }
 
-    // Initialize
-    // add_action( 'init' , array( 'v_' , 'init' ) );
+    /**
+     * extend
+     * Method to extend settings / options (arrays)
+     * @param  [ array ] $base        [ the base/original array ]
+     * @param  [ array ] $replacement [ the replacement array ]
+     * @return [ array ]              [ the extended base array]
+     */
+    public static function extend( $base, $replacement = null ) {
+      // Return false if $base is invalid
+      if( !isset($base) || !is_array( $base ) ) {
+        return false;
+      }
 
-    // Add Featured Image (post thumbnails)
-    add_theme_support( 'post-thumbnails' );
+      // Return base if $replacement is not defined or if it's not valid
+      if( !$replacement || !is_array( $replacement ) ) {
+        return $base;
+      }
+
+      // Defining the $output
+      $output = array_replace_recursive( $base, $replacement );
+
+      // Returning the $output
+      return $output;
+    }
+
+  }
+
+  // Initialize
+  // add_action( 'init' , array( 'v_' , 'init' ) );
+
+  // Add Featured Image (post thumbnails)
+  add_theme_support( 'post-thumbnails' );
 }
