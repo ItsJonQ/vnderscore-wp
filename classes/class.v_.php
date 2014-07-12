@@ -78,6 +78,24 @@ if(!class_exists('v_')) {
       return $output;
     }
 
+    /**
+     * parse
+     * Used to strip unnecessary <p> and <br> tags from the $content
+     */
+    public static function parse( $content, $paragraph_tag = false, $br_tag = false ) {
+        $content = preg_replace( '#^<\/p>|^<br \/>|<p>$#', '', $content );
+
+        if ( $br_tag ) {
+            $content = preg_replace( '#<br \/>#', '', $content );
+        }
+
+        if ( $paragraph_tag ) {
+            $content = preg_replace( '#<p>|</p>#', '', $content );
+        }
+
+        return do_shortcode( shortcode_unautop( trim( $content ) ) );
+    }
+
   }
 
   // Initialize
