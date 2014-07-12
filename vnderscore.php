@@ -8,3 +8,6 @@
  * Author URI: http://jonquach.com
  * License: MIT
  */
+
+// Including the vnderscore class
+require_once( 'classes/class.v_.php' );
