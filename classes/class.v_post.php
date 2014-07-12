@@ -22,7 +22,7 @@ if(!class_exists('v_post')) {
      */
     public static function init() {
 
-      // add_filter('excerpt_more', array( 'v_post', 'filter_excerpt_read_more' ) );
+      add_filter('excerpt_more', array( 'v_post', 'filter_excerpt_read_more' ) );
     }
 
     /**
@@ -368,6 +368,6 @@ if(!class_exists('v_post')) {
   }
 
   // Initialize
-  // add_action( 'init' , array( 'v_post' , 'init' ) );
+  add_action( 'init' , array( 'v_post' , 'init' ) );
 
 }

@@ -13,29 +13,10 @@
 if(!class_exists('v_')) {
 
   // Including / requiring the other classes
-
-  /**
-   * Filter
-   * @class   v_filter
-   */
   include( 'class.v_filter.php' );
-
-  /**
-   * Header
-   * @class   v_header
-   */
   include( 'class.v_header.php' );
-
-  /**
-   * Image
-   * @class   v_image
-   */
   include( 'class.v_image.php' );
-
-  /**
-   * Posts
-   * @class   v_post
-   */
+  include( 'class.v_parse.php' );
   include( 'class.v_post.php' );
 
 
