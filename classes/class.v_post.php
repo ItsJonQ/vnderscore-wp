@@ -104,11 +104,21 @@ if(!class_exists('v_post')) {
     }
 
 
-    public static function category() {
+    public static function category( $options = null ) {
+
+      // Defining the default settings
+      $settings = array(
+        'class'    => 'category',
+      );
+
+      $settings = v_::extend( $settings, $options );
+
+      $class_name = $settings['class'];
+
       ob_start();
       the_category('</span><span class="space">|</span><span itemprop="articleSection">');
       $category = ob_get_clean();
-      $output = '<span class="entry-category"><span itemprop="articleSection">'.$category.'</span></span>';
+      $output = '<span class="'.$class_name.'"><span itemprop="articleSection">'.$category.'</span></span>';
       return $output;
     }
 
