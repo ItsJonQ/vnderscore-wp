@@ -14,7 +14,7 @@ if(!class_exists('v_')) {
 
   // Including / requiring the other classes
   include( 'class.v_filter.php' );
-  include( 'class.v_header.php' );
+  // include( 'class.v_header.php' );
   include( 'class.v_image.php' );
   include( 'class.v_parse.php' );
   include( 'class.v_post.php' );
@@ -60,21 +60,30 @@ if(!class_exists('v_')) {
     }
 
     /**
-     * parse
-     * Used to strip unnecessary <p> and <br> tags from the $content
+     * query
+     * Creating and returning a new (optimized) WP_Query
      */
-    public static function parse( $content, $paragraph_tag = false, $br_tag = false ) {
-        $content = preg_replace( '#^<\/p>|^<br \/>|<p>$#', '', $content );
+    public static function query( $array = null ) {
 
-        if ( $br_tag ) {
-            $content = preg_replace( '#<br \/>#', '', $content );
+        // Defining the default optimized array
+        $arguments = array(
+            'no_found_rows'          => true,
+            'update_post_term_cache' => false,
+            'update_post_meta_cache' => false,
+            'cache_results'          => false
+        );
+
+        // If $array is defined, merge it with the default array
+        if(isset($array)) {
+            $arguments = array_merge($arguments, $array);
         }
 
-        if ( $paragraph_tag ) {
-            $content = preg_replace( '#<p>|</p>#', '', $content );
-        }
+        // Defining the output with a new WP_Query with $arguments
+        $output = new WP_Query( $arguments );
 
-        return do_shortcode( shortcode_unautop( trim( $content ) ) );
+        // Returning the $output
+        return $output;
+
     }
 
   }
