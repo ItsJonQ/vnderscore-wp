@@ -173,6 +173,7 @@ if(!class_exists('v_post')) {
       // Defining the $author
       if( $settings['author'] === true ) {
         $author = self::author();
+        $author = $author . $sep;
       } else {
         $author = null;
       }
@@ -180,7 +181,6 @@ if(!class_exists('v_post')) {
       // Defining the $date
       if( $settings['date'] === true ) {
         $date = self::publish_date( $id );
-        $date = $sep . $date;
       } else {
         $date = null;
       }
