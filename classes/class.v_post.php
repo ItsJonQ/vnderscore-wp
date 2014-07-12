@@ -133,6 +133,16 @@ if(!class_exists('v_post')) {
       }
     }
 
+    /**
+     * filter_excerpt_read_more
+     * Updating the WP default read more filter
+     */
+    public static function filter_excerpt_read_more( $more ) {
+
+      global $post;
+
+      return '<a class="read-more" href="'. get_permalink($post->ID) . '"> Read More</a>';
+    }
 
     /**
      * meta
