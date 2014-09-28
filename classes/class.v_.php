@@ -60,6 +60,28 @@ if(!class_exists('v_')) {
     }
 
     /**
+     * get_template
+     * This gets and returns the template file using locate_template. This allows for $variables to be passed into the template
+     */
+    public static function get_template( $path = null , $params = null) {
+
+      // Return false if $path is not defined
+      if( !$path ) return false;
+
+      // Extracting the parameters
+      if( $params ) {
+        extract( $params );
+      }
+
+      // Defining the output with locate_template
+      $output = include( locate_template( $path . '.php' ) );
+
+      // Returning the output
+      return $output;
+
+    }
+
+    /**
      * query
      * Creating and returning a new (optimized) WP_Query
      */
