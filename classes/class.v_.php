@@ -108,6 +108,34 @@ if(!class_exists('v_')) {
 
     }
 
+    /**
+     * require_all
+     * Requiring all the files of a particular directory
+     */
+    public static function require_all( $dir = false ) {
+      // Return false if $dir is not defined
+      if( $dir == false ) {
+        return false;
+      }
+
+      // Defining the directory
+      $directory = get_stylesheet_directory() . '/' . $dir;
+      $files = glob( $directory . "/*" );
+
+      // Return turn false if directory is empty
+      if($files <= 0) {
+        return $false;
+      }
+
+      // Looping through each file
+      foreach($files as $file) {
+        // Requiring the file
+        require_once( $file );
+      }
+
+      // Returning true
+      return true;
+    }
   }
 
   // Initialize
