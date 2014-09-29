@@ -82,6 +82,56 @@ if(!class_exists('v_')) {
     }
 
     /**
+     * insert_terms
+     * This inserts terms for taxomies in bulk
+     */
+    public static function insert_terms() {
+
+      // Get all arguments as array
+      $terms_length = func_num_args();
+      $terms = func_get_args();
+
+      // Return false if $terms is not defined or invalid
+      if( !$terms || $terms_length == 0 ) {
+        return false;
+      }
+
+      /**
+       * Each $terms item should follow the following format
+       * array( 'Term Name', 'Taxonomy', 'Slug' )
+       */
+      for( $i = 0; $i < $terms_length; $i++ ) {
+
+        // Defining the term
+        $term = $terms[$i];
+
+        // Defining the $term variables
+        $name = $term[0];
+        $taxonomy = $term[1];
+        $slug = null;
+
+        if( isset( $term[2] ) ) {
+          $slug = $term[2];
+        }
+
+        // Skip interation if any of the above variables are not defined
+        if( !$name || !$taxonomy || term_exists( $name, $taxonomy ) ) {
+          continue;
+        }
+
+        // Insert the term
+        if( $slug ) {
+          $slug = array( 'slug' => $slug );
+        }
+
+        wp_insert_term( $name, $taxonomy, $slug);
+
+      }
+
+      return true;
+    }
+
+    /**
      * query
      * Creating and returning a new (optimized) WP_Query
      */
