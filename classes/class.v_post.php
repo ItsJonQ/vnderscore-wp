@@ -122,6 +122,14 @@ if(!class_exists('v_post')) {
       return $output;
     }
 
+    /**
+     * date
+     * Echos the publish_date of a post
+     * @return [type] [description]
+     */
+    public static function date() {
+      echo self::publish_date();
+    }
 
     /**
      * content
