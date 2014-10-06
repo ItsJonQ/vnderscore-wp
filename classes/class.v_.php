@@ -13,6 +13,7 @@
 if(!class_exists('v_')) {
 
   // Including / requiring the other classes
+  include( 'class.v_config.php' );
   include( 'class.v_filter.php' );
   // include( 'class.v_header.php' );
   include( 'class.v_image.php' );
@@ -57,6 +58,50 @@ if(!class_exists('v_')) {
 
       // Returning the $output
       return $output;
+    }
+
+    /**
+     * get_controller
+     * This method loads and initializes the controller class, and returns the controller object
+     * @param  [type] $path       [description]
+     * @param  [type] $controller [description]
+     * @return [type]             [description]
+     */
+    public static function get_controller( $options = null ) {
+
+      // Define the controllers directory
+      if( !defined( 'CONTROLLERS_DIR' ) ) {
+        define( "CONTROLLERS_DIR", get_stylesheet_directory() ."/app/controllers/" );
+      }
+
+      // Defining the file path to load the controller
+      $path = CONTROLLERS_DIR;
+      $file_name = basename( array_values( debug_backtrace() )[0]['file'] );
+      $file = $path . $file_name;
+
+      // Setting the controller
+      $controller = '';
+
+      // Loading the controller
+      require_once( $file );
+
+      // Defining the controller class name
+      // Source: http://stackoverflow.com/questions/5546120/php-capitalize-after-dash
+      $controller = implode('-', array_map('ucfirst', explode('-', $file_name)));
+      $controller = str_replace( '-', '', $controller );
+      $controller = str_replace( '.php', '', $controller );
+      $controller = $controller . 'Controller';
+
+      // Initializing the controller
+      $controller_class = new $controller( $options );
+
+      // Return false if $controller is not valid
+      if( !$controller_class ) {
+        return false;
+      }
+
+      // Returning the controller
+      return $controller_class;
     }
 
     /**
@@ -192,5 +237,5 @@ if(!class_exists('v_')) {
   // add_action( 'init' , array( 'v_' , 'init' ) );
 
   // Add Featured Image (post thumbnails)
-  add_theme_support( 'post-thumbnails' );
+  // add_theme_support( 'post-thumbnails' );
 }
