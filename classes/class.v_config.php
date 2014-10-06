@@ -28,9 +28,6 @@ if(!class_exists('v_config')) {
       if( !$taxonomy || !taxonomy_exists( $taxonomy ) ) {
         return false;
       }
-
-      print_r($taxonomy);
-
     }
 
   }
