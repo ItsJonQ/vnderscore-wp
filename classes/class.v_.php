@@ -76,7 +76,17 @@ if(!class_exists('v_')) {
 
       // Defining the file path to load the controller
       $path = CONTROLLERS_DIR;
-      $file_name = basename( array_values( debug_backtrace() )[0]['file'] );
+      $origin = array_values( debug_backtrace() )[0]['file'];
+      $file_name = basename( $origin );
+      $file_dirs = explode( '/', dirname( $origin ) );
+      $file_dir = end( $file_dirs );
+
+      // Adjust the path if there is a parent directory of the file
+      if( $file_dir !== 'templates' || $file_dir !== 'app' ) {
+        $path = $path . $file_dir . '/';
+      }
+
+      // Define the $file name to include
       $file = $path . $file_name;
 
       // Setting the controller
