@@ -81,8 +81,12 @@ if(!class_exists('v_')) {
       $file_dirs = explode( '/', dirname( $origin ) );
       $file_dir = end( $file_dirs );
 
+      $theme_dir = basename( get_template_directory() );
+
       // Adjust the path if there is a parent directory of the file
-      if( $file_dir !== 'templates' || $file_dir !== 'app' ) {
+      if( $file_dir !== 'templates' &&
+          $file_dir !== 'app' &&
+          $file_dir !== $theme_dir ) {
         $path = $path . $file_dir . '/';
       }
 
