@@ -152,6 +152,31 @@ if(!class_exists('v_post')) {
     }
 
     /**
+     * excerpt_lead
+     * @param  boolean $echo      [ Determines whether or not method returns/echos ]
+     * @return [ string ]        [ html string of post excerpt]
+     */
+    public static function excerpt_lead( $echo = true ) {
+
+      global $post;
+
+      // Defining the $excerpt
+      $excerpt = null;
+
+      // Update the excerpt if post_excerpt exists
+      if( $post->post_excerpt ) {
+        $excerpt = '<p class="lead">' . $post->post_excerpt . '</p>';
+      }
+
+      // Echoing / returning the $excerpt
+      if( $echo === false ) {
+        return $excerpt;
+      } else {
+        echo $excerpt;
+      }
+    }
+
+    /**
      * filter_excerpt_read_more
      * Updating the WP default read more filter
      */
