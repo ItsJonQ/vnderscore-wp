@@ -196,12 +196,16 @@ if(!class_exists('v_')) {
      */
     public static function query( $array = null ) {
 
+        // Getting pagination
+        $paged = ( get_query_var('page') ) ? get_query_var('page') : 1;
+
         // Defining the default optimized array
         $arguments = array(
             'no_found_rows'          => true,
             'update_post_term_cache' => false,
             'update_post_meta_cache' => false,
-            'cache_results'          => false
+            'cache_results'          => false,
+            'paged' => $paged
         );
 
         // If $array is defined, merge it with the default array
@@ -214,6 +218,41 @@ if(!class_exists('v_')) {
 
         // Returning the $output
         return $output;
+
+    }
+
+    /**
+     * query_offset
+     * Creating and returning a new (optimized) WP_Query (with an offset)
+     */
+    public static function query_offset( $offset = null, $array = null ) {
+      global $wp_query;
+
+      // Defining defaults
+      $arguments = null;
+
+      // Return false if
+      if( !isset( $wp_query->query ) ) {
+        return false;
+      } else {
+        $arguments = $wp_query->query;
+      }
+
+      // Set the offset if it is not set (or is zero)
+      if( !$offset ) {
+        $offset = 1;
+      }
+
+      // Setting the offset
+      $arguments["offset"] = $offset;
+
+      // If $array is defined, merge it with the default array
+      if(isset($array)) {
+          $arguments = array_merge($arguments, $array);
+      }
+
+      // Return the optimized wp_query with the offset query
+      return self::query( $arguments );
 
     }
 
